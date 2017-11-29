@@ -55,7 +55,8 @@ func checkPrivileges() (bool, error) {
 
 	if output, err := exec.Command("id", "-g").Output(); err == nil {
 		if gid, parseErr := strconv.ParseUint(strings.TrimSpace(string(output)), 10, 32); parseErr == nil {
-			if gid == 0 {
+			// Jan Flyborg: added gid 101 to support devices that has a weird GID for root
+			if gid == 0 || gid == 101 {
 				return true, nil
 			}
 			return false, ErrRootPriveleges

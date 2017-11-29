@@ -202,6 +202,7 @@ PIDFile=/var/run/{{.Name}}.pid
 ExecStartPre=/bin/rm -f /var/run/{{.Name}}.pid
 ExecStart={{.Path}} {{.Args}}
 Restart=on-failure
+KillMode=process
 
 [Install]
 WantedBy=multi-user.target
